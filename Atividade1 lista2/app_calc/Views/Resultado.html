@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resultado</title>
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const resultado = urlParams.get('resultado');
+            document.getElementById('resultado').innerText = resultado;
+        }
+    </script>
+</head>
+<body>
+    <h1>Resultado: <span id="resultado"></span></h1>
+    <a href="/">Voltar</a>
+</body>
+</html>

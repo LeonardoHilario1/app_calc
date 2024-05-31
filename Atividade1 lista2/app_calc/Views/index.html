@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora</title>
+    <script>
+        async function calcular(event) {
+            event.preventDefault();
+
+            const num1 = document.querySelector('input[name="num1"]').value;
+            const num2 = document.querySelector('input[name="num2"]').value;
+            const operacao = document.querySelector('select[name="operacao"]').value;
+
+            const response = await fetch('/calcular', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ num1, num2, operacao })
+            });
+
+            const result = await response.json();
+
+            if (result.error) {
+                document.getElementById('mensagem').innerText = result.error;
+            } else {
+                window.location.href = `/resultado.html?resultado=${result.resultado}`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Calculadora</h1>
+    <form onsubmit="calcular(event)">
+        <input type="text" name="num1" placeholder="Número 1">
+        <input type="text" name="num2" placeholder="Número 2">
+        <select name="operacao">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <button type="submit">Calcular</button>
+    </form>
+    <p id="mensagem"></p>
+</body>
+</html>
